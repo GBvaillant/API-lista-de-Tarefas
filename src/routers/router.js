@@ -1,6 +1,7 @@
 const express = require('express')
-const Task = require('../models/Tasks')
 const app = express()
+const Task = require('../models/Tasks')
+
 
 
 
@@ -15,7 +16,8 @@ app.post('/task', async (req, res) => {
         console.log('task criada')
     }
     catch (err) {
-        res.status(500).send(err.message)
+        res.status(500).send(err)
+        console.log(err) 
     }
 });
 
