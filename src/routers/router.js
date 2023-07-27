@@ -17,7 +17,7 @@ app.post('/task', async (req, res) => {
     }
     catch (err) {
         res.status(500).send(err)
-        console.log(err) 
+        console.log(err)
     }
 });
 
@@ -35,11 +35,26 @@ app.delete('/task/:id', async (req, res) => {
     try {
         const id = req.params.id
         await Task.findByIdAndRemove(id)
-        res.status(201).json(`Task "${req.body.text}" foi deletada`)
+        res.status(201).json(`Task ${req.body.text} foi deletada`)
         console.log('task deletada')
     }
     catch (err) {
         res.status(500).send(err.message)
+    }
+})
+
+app.patch('/task/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+        const editTask = await Task.findByIdAndUpdate(
+            id,
+            req.body,
+            { new: true }
+        )
+        res.status(200).json(editTask)
+        console.log('task atualizada')
+    } catch (err) {
+        res.status(500).send('error: ' + err)
     }
 })
 
